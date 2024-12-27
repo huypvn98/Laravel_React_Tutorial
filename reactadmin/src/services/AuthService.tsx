@@ -10,6 +10,7 @@ const login = async (payload:LoginPayload) => {
 
         const response = axiosInstance.get('/login')
         console.log(response);
+        
     } catch (error) {
         console.log(error);
     }
