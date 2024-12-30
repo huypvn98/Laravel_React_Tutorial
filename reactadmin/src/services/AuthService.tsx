@@ -8,9 +8,12 @@ type LoginPayload = {
 const login = async (payload:LoginPayload) => {
     try {
 
-        const response = axiosInstance.get('/login')
+        const response = axiosInstance.post('/auth/login', {
+            email: payload.email,
+            password: payload.password
+        })
         console.log(response);
-        
+
     } catch (error) {
         console.log(error);
     }
