@@ -13,6 +13,13 @@ axiosInstance.interceptors.response.use(
         return response.data ? response.data : response
     },
     error => {
+
+        const { response } = error
+
+        if(response.status === 401){
+
+        }
+
         return Promise.reject(error)
     }
 )

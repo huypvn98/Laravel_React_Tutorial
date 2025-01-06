@@ -1,5 +1,6 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import { login } from "../services/AuthService";
+import { useNavigate } from "react-router-dom";
 
 type Inputs = {
     email: string,
@@ -8,9 +9,11 @@ type Inputs = {
 
 const Login = () => {
 
+    const navigate = useNavigate()
     const { register, handleSubmit, watch, formState: { errors } } = useForm<Inputs>();
-    const loginHandler: SubmitHandler<Inputs> = (payload) => {
-        login(payload);
+    const loginHandler: SubmitHandler<Inputs> = async (payload) => {
+        const logged = await login(payload)
+        logged && navigate('/dashboard')
     };
 
     return (
@@ -63,7 +66,7 @@ const Login = () => {
                                     className="w-full p-3 border border-gray-300 rounded-md focus:outline-none                    focus-border-sky-500 h-11"
                                     {...register("password", { required: true })}
                                 />
-                                {errors.password && <span className="text-red-500 text">Bạn phải nhập vào mật khẩu</span>}
+                                {errors.password && <span className="text-red-500 text-xs">Bạn phải nhập vào mật khẩu</span>}
                             </div>
                             <div className="mb-2">
                                 <button
@@ -78,6 +81,9 @@ const Login = () => {
                                     Quên mật khẩu
                                 </a>
                             </p>
+                            <div className="description text-xs text-gray-700">
+                                Chào mừng bạn đến với hệ thống bất động sản version 1.0 của KP
+                            </div>
                         </form>
                     </div>
                 </div>
